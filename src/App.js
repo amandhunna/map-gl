@@ -1,18 +1,5 @@
 import React, {useState, useEffect} from 'react'
 
- /**
-  * STEP 2.1: load static data i.e tile-set or shape-file data 
-  * Go to https://studio.mapbox.com/tilesets/
-  * Click on "New tileSet" button and upload an tile set (shape-file) "refer screenshot src/screenshot/tile-set.png"
-  * 
-  * once map is loaded add a "source" to the map, A "source" is a shape-file which can have multiple layers
-  * If want to do some interactions over map then add those events to "source" (not on layer). A layer is a part of source.
-  * 
-  * STEP 2.2: load dynamic data i.e geojson 
-  * Go to https://geojson.io/ and create some route using line geometry and copy that JSON to addSource_fromGeojson function
-  * similar to step 2.1 now we need to add layer to show data over map
-  */
-
 function initMap(lat, lng, zoom) {
   window.mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
     const map = new window.mapboxgl.Map({
