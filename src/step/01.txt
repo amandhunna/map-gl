@@ -1,0 +1,20 @@
+/**
+ * Step 1: 
+ * Go to https://account.mapbox.com/
+ * Create account using card choose fee plan (no worry for payment)
+ * Go to "Access tokens" and copy a "Default public token"
+ * 
+
+ * NOW: Go to https://docs.mapbox.com/mapbox-gl-js/guides/install/ 
+ * Copy map css and js from the there and to public/index.html
+ * 
+ * in the App.js, create an instance of the map using initMap function
+ * 
+ * in JSX define the element where you want to add Map, here using "<div id="map" style={{width: "100%", height: "100%"}}></div>"
+ * NOTE: "style" is important in element and it's "id" must be same as "container" property mentioned while creating map object
+ * 
+ * Add other information like lat, lng and zoom
+ * 
+ * 
+ * */
+
