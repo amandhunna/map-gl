@@ -1,13 +1,24 @@
 import React, {useState, useEffect} from 'react'
 
-function initMap(lat, lng, zoom) {
+const mapStyles = [
+  'mapbox://styles/mapbox/streets-v12',
+  'mapbox://styles/mapbox/outdoors-v12',
+  'mapbox://styles/mapbox/light-v11',
+  'mapbox://styles/mapbox/dark-v11',
+  'mapbox://styles/mapbox/satellite-v9',
+  'mapbox://styles/mapbox/satellite-streets-v12',
+  'mapbox://styles/mapbox/navigation-day-v1',
+  'mapbox://styles/mapbox/navigation-day-v1',
+  'mapbox://styles/mapbox/navigation-night-v1'  
+]
+
+function initMap(lat, lng, zoom, style) {
   window.mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
     const map = new window.mapboxgl.Map({
   container: 'map',
   center: [lat, lng],
   zoom: zoom,
-  // https://docs.mapbox.com/api/maps/styles/
-  style: 'mapbox://styles/mapbox/dark-v11'
+  style: style
   });
 
   return map
@@ -100,18 +111,23 @@ function addSource_fromGeojson(map) {
 function App() {
   const [lat, setLat] =  useState(77.08496980000001)
   const [lng, setLng] =  useState(28.644934149999997)
+  const [styleIndex,setStyleIndex] = useState(0)
   const [zoom, setZoom] = useState(8)
 
   useEffect(() => {
-    const mapObj = initMap(lat, lng, zoom)
+    const mapObj = initMap(lat, lng, zoom, mapStyles[styleIndex])
     addSource_fromShapeFile(mapObj)
     addSource_fromGeojson(mapObj)
-  },[])
+  },[styleIndex])
 
 
 
   return (
         <main id="main" style={{width: "100vw", height: "100vh"}}>
+          <div id='mapStyle'>
+            <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
+            <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
+          </div>
             <div id="map" style={{width: "100%", height: "100%"}}></div>
         </main>
   );
