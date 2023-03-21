@@ -37,8 +37,9 @@ function initMap(lat, lng, zoom) {
 }
 
 /** 
- * STEP 4: 
+ * STEP 3: 
  * Go to https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
+ * Also, can use color expression to decorate the routes according to properties mentioned in the shape file
  * */ 
 
 function addSource_fromShapeFile(map) {
@@ -50,8 +51,7 @@ function addSource_fromShapeFile(map) {
     "maxzoom": 14
     });
 
-    map.addLayer(
-    {
+    map.addLayer({
     'id': 'highway-data', // any name
     'type': 'line',
     'source': 'anyNameButSameAsSource', //  map.addSource('anyNameButSameAsSource'... is referring here
@@ -61,12 +61,26 @@ function addSource_fromShapeFile(map) {
     'line-cap': 'round'
     },
     'paint': {
-    'line-color': '#F5EA5A',
-    'line-width': 3
-    }
-    },
-    );
+      'line-width': 3,
+      'line-color':   [
+          'case',
+            ['==', ['get', 'TYPE'],'residential'],
+            '#FFF2CC',
+            ['in', ['get', 'TYPE'],'secondary'],
+            '#FFD966',
+            ['in', ['get', 'TYPE'],'tertiary'],
+            '#F4B183',
+            ['in', ['get', 'TYPE'],'trunk'],
+            '#DFA67B',
+            ['in', ['get', 'TYPE'],'construction'],
+            'red',
+            ['in', ['get', 'TYPE'],'unclassified'],
+            '#F2921D',
+            'black'
+            ]
+      }
     });
+  });
 }
 
 function addSource_fromGeojson(map) {
