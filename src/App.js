@@ -33,8 +33,7 @@ function addSource_fromShapeFile(map) {
     "maxzoom": 14
     });
 
-    map.addLayer(
-    {
+    map.addLayer({
     'id': 'highway-data', // any name
     'type': 'line',
     'source': 'anyNameButSameAsSource', //  map.addSource('anyNameButSameAsSource'... is referring here
@@ -44,12 +43,27 @@ function addSource_fromShapeFile(map) {
     'line-cap': 'round'
     },
     'paint': {
-    'line-color': '#F5EA5A',
-    'line-width': 3
-    }
-    },
-    );
+      'line-width': 3,
+      'line-color':   [
+          'case',
+
+            ['in', ['get', 'TYPE'],'primary'],
+            '#F2921D',
+            ['in', ['get', 'TYPE'],'secondary'],
+            '#FFD966',
+            ['in', ['get', 'TYPE'],'tertiary'],
+            '#F4B183',
+            ['==', ['get', 'TYPE'],'residential'],
+            '#FFF2CC',
+            ['in', ['get', 'TYPE'],'trunk'],
+            '#DFA67B',
+            ['in', ['get', 'TYPE'],'construction'],
+            'red',
+            'black'
+            ]
+      }
     });
+  });
 }
 
 function addSource_fromGeojson(map) {

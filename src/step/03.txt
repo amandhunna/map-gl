@@ -1,7 +1,0 @@
-  /**
-   * To make style changes, you need to make change in "style" property of map (generally while initiating map)
-   * 
-   * for reference visit:  
-   *  -> https://docs.mapbox.com/api/maps/styles/ and 
-   *  -> https://docs.mapbox.com/mapbox-gl-js/style-spec/ (for advance)
-   */
