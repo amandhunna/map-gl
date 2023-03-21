@@ -2,4 +2,8 @@
  * STEP 3: 
  * Go to https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
  *
+ * a. Add zoom to the application you can also add minzoom and maxzoom similarly
+ * b. Panning means adding bounding box to the map
+ * c. interaction using popup
+ *
  * */ 
