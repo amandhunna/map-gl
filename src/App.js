@@ -213,6 +213,7 @@ function App() {
             <div className='interaction'>
               <div className='interactionItem'>
                 <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
+                <span>{styleIndex}</span>
                 <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
               </div>
             </div>
