@@ -127,12 +127,25 @@ function App() {
     const mapObj = initMap(lat, lng, zoom)
     addSource_fromShapeFile(mapObj)
     addSource_fromGeojson(mapObj)
-  },[])
-
+  },[zoom])
+/** 
+ * STEP 3: 
+ * Go to https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
+ *
+ * a. Add zoom to the application you can also add minzoom and maxzoom similarly
+ * b. Panning means adding bounding box to the map
+ * */ 
 
 
   return (
         <main id="main" style={{width: "100vw", height: "100vh"}}>
+            <div className='interaction'>
+              <div className='interactionItem'>
+                <button onClick={() => setZoom(prev => prev - 1)}>-</button>
+                <span>zoom</span>
+                <button onClick={() => setZoom(prev => prev + 1)}>+</button>
+              </div>
+            </div>
             <div id="map" style={{width: "100%", height: "100%"}}></div>
         </main>
   );
