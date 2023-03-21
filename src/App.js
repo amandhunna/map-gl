@@ -145,26 +145,78 @@ function addSource_fromGeojson(map) {
   })
 }
 
+const bounds =  [
+  [ 
+  [32.958984, -5.353521], // southwestern corner of the bounds
+  [43.50585, 15.615985]// northeastern corner of the bounds
+  ],  [ 
+  [12.958984, -5.353521], // southwestern corner of the bounds
+  [43.50585, 45.615985]// northeastern corner of the bounds
+  ],
+  [ 
+  [22.958984, -5.353521], // southwestern corner of the bounds
+  [3.50585, 25.615985]// northeastern corner of the bounds
+  ],
+  [ 
+  [42.958984, -55.353521], // southwestern corner of the bounds
+  [43.50585, 15.615985]// northeastern corner of the bounds
+  ], [
+  [20.958984, 78.353521], // southwestern corner of the bounds
+  [20.50585, 78.615985]// northeastern corner of the bounds
+  ], 
+  [[7.798000, 68.14712], [37.090000, 97.34466]],
+]
+let count = 0;
+
+function setBoundingBox(map,index){
+  map.fitBounds(bounds[index]);
+}
+
 function App() {
   const [lat, setLat] =  useState(77.08496980000001)
   const [lng, setLng] =  useState(28.644934149999997)
-  const [styleIndex,setStyleIndex] = useState(4)
-  const [zoom, setZoom] = useState(8)
+  const [styleIndex,setStyleIndex] = useState(3)
+  const [zoom, setZoom] = useState(7)
+  const [map, setMap] = useState({})
 
   useEffect(() => {
     const mapObj = initMap(lat, lng, zoom, mapStyles[styleIndex])
+    setMap(mapObj)
     addSource_fromShapeFile(mapObj)
     addSource_fromGeojson(mapObj)
-  },[styleIndex])
+  },[styleIndex, zoom]) // here we have the problem that we reinitialize the map object so we use react-map-gl-js so we use bounding box
 
-
+  const nextBoundingBox = () => {
+    if(bounds.length -1 < count) {
+      count = 0;  
+    } else {
+      ++count;
+    }
+    setBoundingBox(map,count)
+  }
 
   return (
         <main id="main" style={{width: "100vw", height: "100vh"}}>
-          <div id='mapStyle'>
-            <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
-            <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
-          </div>
+          <section>
+            <div className='interaction'>
+              <div className='interactionItem'>
+                <button onClick={() => setZoom(prev => prev - 1)}>-</button>
+                <span>zoom</span>
+                <button onClick={() => setZoom(prev => prev + 1)}>+</button>
+              </div>
+            </div>
+            <div className='interaction'>
+              <div className='interactionItem'>
+                <button onClick={() => nextBoundingBox()}>Set next bounding box</button>
+              </div>
+            </div>
+            <div className='interaction'>
+              <div className='interactionItem'>
+                <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
+                <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
+              </div>
+            </div>
+          </section>
             <div id="map" style={{width: "100%", height: "100%"}}></div>
         </main>
   );
