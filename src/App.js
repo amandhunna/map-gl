@@ -20,7 +20,30 @@ function initMap(lat, lng, zoom, style) {
   zoom: zoom,
   style: style
   });
+// https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
+  map.on('click', (event) => {
+    // If the user clicked on one of your markers, get its information.
+    const features = map.queryRenderedFeatures(event.point, {
+      layers: ['highway-data'] // replace with your layer.id (not source.id)
+    });
+    if (!features.length) {
+      return;
+    }
+    const feature = features[0];
+    console.log("mmm", feature.properties)
+  
+  /* 
+    Create a popup, specify its options 
+    and properties, and add it to the map.
+  */
 
+    const popup = new window.mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates[0])
+    .setHTML(
+      `<h3>${feature.properties.TYPE}</h3><p>${feature.properties.TYPE}</p>`
+    )
+    .addTo(map);
+  })
   return map
 }
 
@@ -125,7 +148,7 @@ function addSource_fromGeojson(map) {
 function App() {
   const [lat, setLat] =  useState(77.08496980000001)
   const [lng, setLng] =  useState(28.644934149999997)
-  const [styleIndex,setStyleIndex] = useState(0)
+  const [styleIndex,setStyleIndex] = useState(4)
   const [zoom, setZoom] = useState(8)
 
   useEffect(() => {
