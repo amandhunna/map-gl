@@ -123,11 +123,15 @@ function App() {
   const [lng, setLng] =  useState(28.644934149999997)
   const [zoom, setZoom] = useState(8)
 
+  const set
+
+
+
   useEffect(() => {
     const mapObj = initMap(lat, lng, zoom)
     addSource_fromShapeFile(mapObj)
     addSource_fromGeojson(mapObj)
-  },[zoom])
+  },[zoom]) // here we have the problem that we reinitialize the map object so we use react-map-gl-js
 /** 
  * STEP 3: 
  * Go to https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
