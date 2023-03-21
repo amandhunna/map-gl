@@ -36,12 +36,6 @@ function initMap(lat, lng, zoom) {
   return map
 }
 
-/** 
- * STEP 3: 
- * Go to https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
- * Also, can use color expression to decorate the routes according to properties mentioned in the shape file
- * */ 
-
 function addSource_fromShapeFile(map) {
   map.on('load', () => {
     map.addSource('anyNameButSameAsSource', { // other wise layer will not be visible
@@ -64,18 +58,19 @@ function addSource_fromShapeFile(map) {
       'line-width': 3,
       'line-color':   [
           'case',
-            ['==', ['get', 'TYPE'],'residential'],
-            '#FFF2CC',
+
+            ['in', ['get', 'TYPE'],'primary'],
+            '#F2921D',
             ['in', ['get', 'TYPE'],'secondary'],
             '#FFD966',
             ['in', ['get', 'TYPE'],'tertiary'],
             '#F4B183',
+            ['==', ['get', 'TYPE'],'residential'],
+            '#FFF2CC',
             ['in', ['get', 'TYPE'],'trunk'],
             '#DFA67B',
             ['in', ['get', 'TYPE'],'construction'],
             'red',
-            ['in', ['get', 'TYPE'],'unclassified'],
-            '#F2921D',
             'black'
             ]
       }
