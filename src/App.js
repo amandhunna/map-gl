@@ -56,23 +56,7 @@ function addSource_fromShapeFile(map) {
     },
     'paint': {
       'line-width': 3,
-      'line-color':   [
-          'case',
-
-            ['in', ['get', 'TYPE'],'primary'],
-            '#F2921D',
-            ['in', ['get', 'TYPE'],'secondary'],
-            '#FFD966',
-            ['in', ['get', 'TYPE'],'tertiary'],
-            '#F4B183',
-            ['==', ['get', 'TYPE'],'residential'],
-            '#FFF2CC',
-            ['in', ['get', 'TYPE'],'trunk'],
-            '#DFA67B',
-            ['in', ['get', 'TYPE'],'construction'],
-            'red',
-            'black'
-            ]
+      'line-color':  'black'
       }
     });
   });
