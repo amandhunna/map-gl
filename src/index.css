@@ -4,26 +4,9 @@
   box-sizing: border-box;
   user-select: none;
 }
-#navbar {
-  flex-basis: 20%;
-}
-
-#map_view {
-  flex-basis: 50%;
-  position: relative;
-}
-
-#map_interaction_section {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.information {
-  flex-basis: 30%;
+a {
+  color: beige;
+  text-decoration: none;
 }
 
 button {
@@ -35,23 +18,22 @@ button {
 aside {
   backdrop-filter: blur(0.1px);
   border-right: 1px solid #ffffff2a;
-}
-
-a {
-  color: beige;
-  text-decoration: none;
-}
-
-.information {
-  /* position: absolute; */
+  position: absolute;
   z-index: 1;
-  top:0;
-  right: 0;
+  left: 0;
+  top: 0;
   height: 100vh;
+}
+
+article {
   backdrop-filter: blur(0.1px);
-  background-color: #FFD9660a;
-  border-left: 1px solid #FFD9661a;
+  border-left: 1px solid #ffffff2a;
+  position: absolute;
+  z-index: 1;
+  right:0;
+  top: 0;
   width: 250px;
+  height: 100vh;
 }
 
 button > span {
@@ -62,6 +44,7 @@ button > span {
 #main {
   display: flex;
 }
+
 #goal_title {
   background-color: #FFF2CC;
   padding: 10px;

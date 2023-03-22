@@ -1,35 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-  Outlet
-} from "react-router-dom";
-import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
-
-function ErrorPage() {
-  return <strong>Stupid you broke it!</strong>
-}
-
-function BasicSetup() {
-  return <div className='information'><Outlet/>BasicSetup</div>
-}
-
-function Source() {
-  return <div className='information'>Source</div>
-}
-
-function Interaction() {
-  return <div className='information'>Interaction</div>
-}
-
-function Styling() {
-  return <div className='information'>Styling</div>
-}
-
-function More() {
-  return <div className='information'>More</div>
-}
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter} from 'react-router-dom';
+import Aside from './Aside';
+import Map from './Map'
+import Information from './Information'
 
 
 const mapStyles = [
@@ -227,76 +200,25 @@ function App() {
     setBoundingBox(map,count)
   }
 
-  function Aside() {
-    return      (     
-    <aside id="navbar">
-    <div id="goal_title">Mapbox tutorials</div>
-    <div className='interaction'>
-      <div className='interactionItem'>
-        <button onClick={() => setZoom(prev => prev - 1)}>-</button>
-        <span>zoom</span>
-        <button onClick={() => setZoom(prev => prev + 1)}>+</button>
-      </div>
-    </div>
-    <div className='interaction'>
-      <div className='interactionItem'>
-        <button onClick={() => nextBoundingBox()}>Set next bounding box</button>
-      </div>
-    </div>
-    <div className='interaction'>
-      <div className='interactionItem'>
-        <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
-        <span>{styleIndex}</span>
-        <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
-      </div>
-    </div>
-    <NavBar />
-  </aside>)
+  const states = {
+    lat,lng,styleIndex,zoom,map,
+  } 
+
+  const setState = {
+    setLat,setLng,setStyleIndex,setZoom,setMap
   }
+  const props = {...states, ...setState} 
 
   return (
     <>
-
-       {/* <main id="main" style={{width: "100vw", height: "100vh", position: 'relative'}}>
-          <div id="map" style={{width: "100%", height: "100%"}}></div>
-        </main> 
-         */}
-
-  
-    <Router>
-      <Aside/>
-      <section id='map_view'>
-        <div id="map_interaction_section"></div>
-      </section>
-      <Routes>
-      <Route path="/" element={<BasicSetup />} />
-      <Route path="/source" element={<Source />} />
-      <Route path="/interaction" element={<Interaction />} />
-      <Route path="/styling" element={<Styling />} />
-      <Route path="/more" element={<More />} />
-      </Routes>
-    </Router>
+      <BrowserRouter>
+        <Map 
+          aside={() => <Aside {...props} nextBoundingBox={nextBoundingBox}/>} 
+          information={() => <Information />} 
+        />
+      </BrowserRouter>
     </>
-
   );
 }
-
-
-
-
-function NavBar() {
- return <nav className="navbar">
-  <ul className="navbar_itemList">
-    <li><Link to='/'>Basic setup</Link></li>
-    <li><Link to='/source'>Source</Link></li>
-    <li><Link to='/interaction'>Interaction</Link></li>
-    <li><Link to='/styling'>Styling</Link></li>
-    <li><Link to='/more'>More</Link></li>
-  </ul>
-  </nav>
-}
-
-
-
 
 export default App;
