@@ -19,8 +19,8 @@ function Aside() {
     return (     
         <aside id="navbar">
             <h6>Mapbox tutorials</h6>
-            <nav className="navbar">
-                <ul className="navbar_itemList">
+            <nav>
+                <ul>
                     <li {...active[1]}><Link onClick={() => onClick(1)} to='/'>Basic setup</Link></li>
                     <li {...active[2]}><Link onClick={() => onClick(2)} to='/source'>Source</Link></li>
                     <li {...active[3]}><Link onClick={() => onClick(3)} to='/interaction'>Interaction</Link></li>

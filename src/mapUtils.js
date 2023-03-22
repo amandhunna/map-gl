@@ -32,15 +32,8 @@ export const bounds =  [
     [[7.798000, 68.14712], [37.090000, 97.34466]],
 ]
 
-export function initMap(lat, lng, zoom, style) {
-  window.mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-    const map = new window.mapboxgl.Map({
-  container: 'map',
-  center: [lat, lng],
-  zoom: zoom,
-  style: style
-  });
-// https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
+export function add_mapInteraction(map) {
+  // https://docs.mapbox.com/help/tutorials/add-points-pt-3/#part-3-add-interactivity
   map.on('click', (event) => {
     // If the user clicked on one of your markers, get its information.
     const features = map.queryRenderedFeatures(event.point, {
@@ -50,8 +43,7 @@ export function initMap(lat, lng, zoom, style) {
       return;
     }
     const feature = features[0];
-    console.log("mmm", feature.properties)
-  
+
   /* 
     Create a popup, specify its options 
     and properties, and add it to the map.
@@ -64,10 +56,23 @@ export function initMap(lat, lng, zoom, style) {
     )
     .addTo(map);
   })
+
   return map
 }
 
-export function addSource_fromShapeFile(map) {
+export function initMap(lat, lng, zoom, style) {
+  window.mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+    const map = new window.mapboxgl.Map({
+  container: 'map',
+  center: [lat, lng],
+  zoom: zoom,
+  style: style
+  });
+
+  return map
+}
+
+export function addSource_fromShapeFile(map, lineColor = '#000') {
   map.on('load', () => {
     map.addSource('anyNameButSameAsSource', { // other wise layer will not be visible
     type: 'vector',
@@ -87,26 +92,12 @@ export function addSource_fromShapeFile(map) {
     },
     'paint': {
       'line-width': 3,
-      'line-color':   [
-          'case',
-
-            ['in', ['get', 'TYPE'],'primary'],
-            '#F2921D',
-            ['in', ['get', 'TYPE'],'secondary'],
-            '#FFD966',
-            ['in', ['get', 'TYPE'],'tertiary'],
-            '#F4B183',
-            ['==', ['get', 'TYPE'],'residential'],
-            '#FFF2CC',
-            ['in', ['get', 'TYPE'],'trunk'],
-            '#DFA67B',
-            ['in', ['get', 'TYPE'],'construction'],
-            'red',
-            'black'
-            ]
+      'line-color':   lineColor
       }
     });
   });
+
+  return map
 }
 
 export function addSource_fromGeojson(map) {
@@ -163,6 +154,8 @@ export function addSource_fromGeojson(map) {
       }
     });
   })
+
+  return map
 }
 
 export function nextBoundingBox(count) {
