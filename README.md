@@ -10,8 +10,13 @@
 
 4. Map styling: Mapbox GL allows you to customize the style of your map, including the colors, labels, and symbols. You can learn how to use the Mapbox Style Specification to create custom map styles.
 
+5. Map Clustering (only in geojson on the basis of properties), Map icons loading, adding Map Search
+
 ##
 
 To start app use `npm start`
 
-REF: Readme edited using : [dillinger](https://dillinger.io/)
+REF:
+
+- Readme edited using dillinger: [Link](https://dillinger.io/)
+- React router dom: [Link](https://reactrouter.com/en/main/start/tutorial)

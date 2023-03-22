@@ -1,4 +1,21 @@
 import React, {useState, useEffect} from 'react'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+} from "react-router-dom";
+
+function ErrorPage() {
+  return <strong>Stupid you broke it!</strong>
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <BasicSetup />,
+    errorElement: <ErrorPage />,
+  },
+]);
 
 const mapStyles = [
   'mapbox://styles/mapbox/streets-v12',
@@ -195,32 +212,77 @@ function App() {
     setBoundingBox(map,count)
   }
 
+  function Aside() {
+    return      (     
+    <aside>
+    <div id="goal_title">Mapbox tutorials</div>
+    <div className='interaction'>
+      <div className='interactionItem'>
+        <button onClick={() => setZoom(prev => prev - 1)}>-</button>
+        <span>zoom</span>
+        <button onClick={() => setZoom(prev => prev + 1)}>+</button>
+      </div>
+    </div>
+    <div className='interaction'>
+      <div className='interactionItem'>
+        <button onClick={() => nextBoundingBox()}>Set next bounding box</button>
+      </div>
+    </div>
+    <div className='interaction'>
+      <div className='interactionItem'>
+        <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
+        <span>{styleIndex}</span>
+        <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
+      </div>
+    </div>
+   
+  </aside>)
+  }
+
   return (
-        <main id="main" style={{width: "100vw", height: "100vh"}}>
-          <section>
-            <div className='interaction'>
-              <div className='interactionItem'>
-                <button onClick={() => setZoom(prev => prev - 1)}>-</button>
-                <span>zoom</span>
-                <button onClick={() => setZoom(prev => prev + 1)}>+</button>
-              </div>
-            </div>
-            <div className='interaction'>
-              <div className='interactionItem'>
-                <button onClick={() => nextBoundingBox()}>Set next bounding box</button>
-              </div>
-            </div>
-            <div className='interaction'>
-              <div className='interactionItem'>
-                <button onClick={() => setStyleIndex(prev => prev === 0? 0:prev - 1)}>Previous style</button>
-                <span>{styleIndex}</span>
-                <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
-              </div>
-            </div>
-          </section>
-            <div id="map" style={{width: "100%", height: "100%"}}></div>
+        <main id="main" style={{width: "100vw", height: "100vh", position: 'relative'}}>
+          <Aside />
+          <Pages />      
+          <div id="map" style={{width: "100%", height: "100%"}}></div>
         </main>
   );
+}
+
+function Pages() {
+  return <RouterProvider router={router} ><NavBar/></RouterProvider>
+}
+
+function NavBar() {
+ return <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <ul className="navbar-nav mr-auto">
+  <Link to={`contacts/1`}>Your Name</Link>
+    <li><Link to='/source'>Source</Link></li>
+    <li><Link to='/interaction'>Interaction</Link></li>
+    <li><Link to='/styling'>Styling</Link></li>
+    <li><Link to='/more'>More</Link></li>
+  </ul>
+  </nav>
+}
+
+
+function BasicSetup() {
+  return <div>BasicSetup</div>
+}
+
+function Source() {
+  return <div>Source</div>
+}
+
+function Interaction() {
+  return <div>Interaction</div>
+}
+
+function Styling() {
+  return <div>Styling</div>
+}
+
+function More() {
+  return <div>More</div>
 }
 
 export default App;

@@ -2,12 +2,21 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 button {
   border: none;
   outline: none;
   background: none;
+}
+
+aside {
+  position: absolute;
+  z-index: 1;
+  height: 100vh;
+  backdrop-filter: blur(0.1px);
+  border-right: 1px solid #ffffff2a;
 }
 
 button > span {
@@ -18,7 +27,14 @@ button > span {
 #main {
   display: flex;
 }
-
+#goal_title {
+  background-color: #FFF2CC;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  user-select: none;
+}
 .interaction {
   display: flex;
   justify-content: center;
