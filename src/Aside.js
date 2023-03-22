@@ -1,19 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 
-function Aside(props) {
-    const {setZoom, nextBoundingBox,mapStyles,styleIndex,setStyleIndex } = props;
+function Aside() {
+    const [active, setActive] = useState({
+         1: {
+            style: { background: '#FFD966'}
+        }
+    })
 
+    const onClick = (item) => {
+        setActive({
+            [item] : {
+                style: { background: '#FFD966'}
+            }
+        })
+    }
+  
     return (     
         <aside id="navbar">
-            <div id="goal_title">Mapbox tutorials</div>
+            <h6>Mapbox tutorials</h6>
             <nav className="navbar">
                 <ul className="navbar_itemList">
-                    <li><Link to='/'>Basic setup</Link></li>
-                    <li><Link to='/source'>Source</Link></li>
-                    <li><Link to='/interaction'>Interaction</Link></li>
-                    <li><Link to='/styling'>Styling</Link></li>
-                    <li><Link to='/more'>More</Link></li>
+                    <li {...active[1]}><Link onClick={() => onClick(1)} to='/'>Basic setup</Link></li>
+                    <li {...active[2]}><Link onClick={() => onClick(2)} to='/source'>Source</Link></li>
+                    <li {...active[3]}><Link onClick={() => onClick(3)} to='/interaction'>Interaction</Link></li>
+                    <li {...active[4]}><Link onClick={() => onClick(4)} to='/styling'>Styling</Link></li>
+                    <li {...active[5]}><Link onClick={() => onClick(5)} to='/more'>More</Link></li>
                 </ul>
             </nav>
         </aside>)

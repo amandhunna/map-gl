@@ -4,69 +4,54 @@
   box-sizing: border-box;
   user-select: none;
 }
-a {
-  color: beige;
-  text-decoration: none;
-}
 
-button {
-  border: none;
-  outline: none;
-  background: none;
-}
 
 aside {
   backdrop-filter: blur(0.1px);
   border-right: 1px solid #ffffff2a;
+  background-color: #FFFFFF39;
   position: absolute;
   z-index: 1;
   left: 0;
   top: 0;
   height: 100vh;
+  width: 200px;
 }
 
 article {
   backdrop-filter: blur(0.1px);
-  border-left: 1px solid #ffffff2a;
+  border-left: 1px solid #FFD9662a;
   position: absolute;
   z-index: 1;
   right:0;
   top: 0;
-  width: 250px;
+  width: 350px;
   height: 100vh;
+  background-color: #FFFFFF39;
 }
 
-button > span {
-  cursor: not-allowed;
-  opacity: 0.6;
+li {
+  padding: 10px;
+  background-color: #FFD9660f;
+  border-bottom: 1px solid #FFD9662f;
 }
 
-#main {
-  display: flex;
+
+li:hover {
+  background-color: #FFD966;
 }
 
-#goal_title {
+a {
+  color: #DFA67B;
+  text-decoration: none;
+  padding: 10px;
+}
+
+h6 {
   background-color: #FFF2CC;
   padding: 10px;
   display: flex;
   justify-content: center;
   font-weight: 600;
   user-select: none;
-}
-.interaction {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-}
-
-.interactionItem {
-  gap: 10px;
-  display: flex;
-  background: aliceblue;
-  border: 1px solid gray;
-  padding: 2px;
-  justify-content: center;
-  align-items: center;
 }
