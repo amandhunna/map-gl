@@ -3,19 +3,34 @@ import {
   createBrowserRouter,
   RouterProvider,
   Link,
+  Outlet
 } from "react-router-dom";
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 
 function ErrorPage() {
   return <strong>Stupid you broke it!</strong>
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <BasicSetup />,
-    errorElement: <ErrorPage />,
-  },
-]);
+function BasicSetup() {
+  return <div className='information'><Outlet/>BasicSetup</div>
+}
+
+function Source() {
+  return <div className='information'>Source</div>
+}
+
+function Interaction() {
+  return <div className='information'>Interaction</div>
+}
+
+function Styling() {
+  return <div className='information'>Styling</div>
+}
+
+function More() {
+  return <div className='information'>More</div>
+}
+
 
 const mapStyles = [
   'mapbox://styles/mapbox/streets-v12',
@@ -214,7 +229,7 @@ function App() {
 
   function Aside() {
     return      (     
-    <aside>
+    <aside id="navbar">
     <div id="goal_title">Mapbox tutorials</div>
     <div className='interaction'>
       <div className='interactionItem'>
@@ -235,27 +250,44 @@ function App() {
         <button onClick={() => setStyleIndex(prev => mapStyles.length-1 === prev ?0: prev + 1)}>Next style</button>
       </div>
     </div>
-   
+    <NavBar />
   </aside>)
   }
 
   return (
-        <main id="main" style={{width: "100vw", height: "100vh", position: 'relative'}}>
-          <Aside />
-          <Pages />      
+    <>
+
+       {/* <main id="main" style={{width: "100vw", height: "100vh", position: 'relative'}}>
           <div id="map" style={{width: "100%", height: "100%"}}></div>
-        </main>
+        </main> 
+         */}
+
+  
+    <Router>
+      <Aside/>
+      <section id='map_view'>
+        <div id="map_interaction_section"></div>
+      </section>
+      <Routes>
+      <Route path="/" element={<BasicSetup />} />
+      <Route path="/source" element={<Source />} />
+      <Route path="/interaction" element={<Interaction />} />
+      <Route path="/styling" element={<Styling />} />
+      <Route path="/more" element={<More />} />
+      </Routes>
+    </Router>
+    </>
+
   );
 }
 
-function Pages() {
-  return <RouterProvider router={router} ><NavBar/></RouterProvider>
-}
+
+
 
 function NavBar() {
- return <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <ul className="navbar-nav mr-auto">
-  <Link to={`contacts/1`}>Your Name</Link>
+ return <nav className="navbar">
+  <ul className="navbar_itemList">
+    <li><Link to='/'>Basic setup</Link></li>
     <li><Link to='/source'>Source</Link></li>
     <li><Link to='/interaction'>Interaction</Link></li>
     <li><Link to='/styling'>Styling</Link></li>
@@ -265,24 +297,6 @@ function NavBar() {
 }
 
 
-function BasicSetup() {
-  return <div>BasicSetup</div>
-}
 
-function Source() {
-  return <div>Source</div>
-}
-
-function Interaction() {
-  return <div>Interaction</div>
-}
-
-function Styling() {
-  return <div>Styling</div>
-}
-
-function More() {
-  return <div>More</div>
-}
 
 export default App;
