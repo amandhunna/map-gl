@@ -74,9 +74,10 @@ export function initMap(lat, lng, zoom, style) {
 
 export function addSource_fromShapeFile(map, lineColor = '#000') {
   map.on('load', () => {
+    // https://mapcruzin.com/free-delhi-country-city-place-gis-shapefiles.htm ==> downloaded from here
     map.addSource('anyNameButSameAsSource', { // other wise layer will not be visible
     type: 'vector',
-    url: 'mapbox://asaman.0wyn6aet', // map id from mapbox
+    url: 'mapbox://amandhunna.czjauk8r', // map id from mapbox
     "minzoom": 0,
     "maxzoom": 14
     });
@@ -85,7 +86,7 @@ export function addSource_fromShapeFile(map, lineColor = '#000') {
     'id': 'highway-data', // any name
     'type': 'line',
     'source': 'anyNameButSameAsSource', //  map.addSource('anyNameButSameAsSource'... is referring here
-    'source-layer': 'delhi_highway-329dkv', // uploaded shape-file name
+    'source-layer': 'delhi_highway-0bmsqr', // uploaded shape-file name
     'layout': {
     'line-join': 'round',
     'line-cap': 'round'
